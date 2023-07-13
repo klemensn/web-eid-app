@@ -1,0 +1,22 @@
+name: upload-release-tarball
+
+on: release
+
+jobs:
+  upload-release-tarball:
+    name: Upload complete source code including submodules
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        submodules: recursive
+    - run: |
+        TAG="${GITHUB_REF#refs/tags/}"
+        RELEASE_TARBALL="web-eid-app-${TAG}.tar.gz"
+        git archive --format=tar --output="${RELEASE_TARBALL}" "${TAG}" --
+        echo "RELEASE_TARBALL='${RELEASE_TARBALL}'" >> "${GITHUB_ENV}"
+
+    - uses: softprops/action-gh-release@v1
+      with:
+        files: ${{env.RELEASE_TARBALL}}
