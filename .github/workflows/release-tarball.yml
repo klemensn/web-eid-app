@@ -17,6 +17,6 @@ jobs:
         git archive --format=tar --output="${RELEASE_TARBALL}" "${TAG}" --
         echo "RELEASE_TARBALL='${RELEASE_TARBALL}'" >> "${GITHUB_ENV}"
 
-    - uses: softprops/action-gh-release@v1
+    - uses: svenstaro/upload-release-action@v2
       with:
-        files: ${{env.RELEASE_TARBALL}}
+        file: ${{ env.RELEASE_TARBALL }}
