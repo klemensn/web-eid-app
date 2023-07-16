@@ -13,9 +13,10 @@ jobs:
         submodules: recursive
     - run: |
         set -x
+        FOMRAT='tar.gz'
         TAG="${GITHUB_REF#refs/tags/}"
-        RELEASE_TARBALL="/tmp/web-eid-app-${TAG}.tar.gz"
-        git archive --verbose --format=tar --output="${RELEASE_TARBALL}" "${TAG}" --
+        RELEASE_TARBALL="/tmp/web-eid-app-${TAG}.${FORMAT}"
+        git archive --format="${FORMAT}" --output="${RELEASE_TARBALL}" "${TAG}" --
         echo "RELEASE_TARBALL='${RELEASE_TARBALL}'" >> "${GITHUB_ENV}"
 
     - uses: svenstaro/upload-release-action@v2
