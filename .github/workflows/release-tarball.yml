@@ -13,7 +13,7 @@ jobs:
         submodules: recursive
     - run: |
         TAG="${GITHUB_REF#refs/tags/}"
-        RELEASE_TARBALL="web-eid-app-${TAG}.tar.gz"
+        RELEASE_TARBALL="/tmp/web-eid-app-${TAG}.tar.gz"
         git archive --format=tar --output="${RELEASE_TARBALL}" "${TAG}" --
         echo "RELEASE_TARBALL='${RELEASE_TARBALL}'" >> "${GITHUB_ENV}"
 
